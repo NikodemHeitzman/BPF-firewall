@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "firewall",
+    "firewall-ebpf",
+    "firewall-common",
+]
+resolver = "2"
