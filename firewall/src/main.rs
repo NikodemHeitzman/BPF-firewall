@@ -1,6 +1,6 @@
 use aya::maps::HashMap;
 use aya::programs::{Xdp, XdpFlags};
-use aya::{include_bytes_aligned, Bpf};
+use aya::Ebpf;
 use clap::Parser;
 use log::{info, warn};
 use std::net::Ipv4Addr;
@@ -20,7 +20,7 @@ async fn main() -> Result<(), anyhow::Error> {
     let opt = Opt::parse();
     env_logger::init();
 
-    let mut bpf = Bpf::load_file("../target/bpfel-unknown-none/release/firewall-ebpf")?;
+    let mut bpf = Ebpf::load_file("../target/bpfel-unknown-none/release/firewall-ebpf")?;
 
     if let Err(e) = aya_log::EbpfLogger::init(&mut bpf) {
         warn!("Nie udało się zainicjować logowania eBPF: {}", e);
