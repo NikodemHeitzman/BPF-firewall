@@ -21,13 +21,12 @@ jobs:
       - name: Install stable toolchain (Control Plane)
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt, clippy
+            components: rustfmt, clippy
 
       - name: Install nightly toolchain (Data Plane eBPF)
         uses: dtolnay/rust-toolchain@nightly
         with:
-          components: rust-src, rustfmt
-
+            components: rust-src, rustfmt, clipp
       - name: Install bpf-linker
         run: cargo install bpf-linker
 
