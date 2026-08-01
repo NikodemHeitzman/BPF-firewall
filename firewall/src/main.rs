@@ -1,5 +1,5 @@
 use aya::programs::{Xdp, XdpFlags};
-use aya::{include_bytes_aligned, Ebpf};
+use aya::Ebpf;
 use clap::Parser;
 use log::{info, warn};
 use tokio::signal;
