@@ -1,5 +1,5 @@
-use aya::{include_bytes_aligned, Ebpf};
 use aya::programs::{Xdp, XdpFlags};
+use aya::{include_bytes_aligned, Ebpf};
 use clap::Parser;
 use log::{info, warn};
 use tokio::signal;
@@ -28,10 +28,14 @@ async fn main() -> Result<(), anyhow::Error> {
     program.load()?;
 
     // Podpięcie programu pod interfejs
-    program.attach(&opt.iface, XdpFlags::default())
+    program
+        .attach(&opt.iface, XdpFlags::default())
         .expect("Nie udało się podpiąć programu XDP do interfejsu");
 
-    info!("Firewall załadowany na interfejsie: {}. Naciśnij Ctrl-C, aby zakończyć.", opt.iface);
+    info!(
+        "Firewall załadowany na interfejsie: {}. Naciśnij Ctrl-C, aby zakończyć.",
+        opt.iface
+    );
 
     info!("Oczekiwanie na sygnał SIGINT...");
     signal::ctrl_c().await?;
