@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 aya = "0.13"
-aya-log = "0.2"
+aya-log = "0.3"
 anyhow = "1"
 clap = { version = "4.1", features = ["derive"] }
 env_logger = "0.10"
