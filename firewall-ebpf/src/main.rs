@@ -15,7 +15,6 @@ pub fn firewall(ctx: XdpContext) -> u32 {
         Err(_) => xdp_action::XDP_ABORTED,
     }
 }
-
 fn try_firewall(ctx: XdpContext) -> Result<u32, ()> {
     let data = ctx.data() as usize;
     let data_end = ctx.data_end() as usize;

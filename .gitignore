@@ -1,1 +1,10 @@
 /target
+/target/
+**/*.rs.bk
+Cargo.lock
+
+.env
+.idea/
+.vscode/
+
+/firewall-ebpf/target/

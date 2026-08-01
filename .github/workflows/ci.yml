@@ -1,0 +1,40 @@
+name: DevSecOps BPF-Firewall CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build_and_lint:
+    name: Build and Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: bpfel-unknown-none
+          components: rustfmt, clippy
+
+      - name: Install bpf-linker
+        run: cargo install bpf-linker
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run Clippy (Linter)
+        run: cargo clippy --workspace -- -D warnings
+
+      - name: Build User Space (Control Plane)
+        run: cargo build --workspace --exclude firewall-ebpf
+
+      - name: Build Kernel Space (Data Plane)
+        run: cargo build -p firewall-ebpf --target bpfel-unknown-none --release
